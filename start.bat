@@ -1,0 +1,1 @@
+java -Djava.library.path=target\natives -jar target\diploma-1.jar
