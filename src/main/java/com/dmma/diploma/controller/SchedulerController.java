@@ -20,9 +20,10 @@ import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 @Controller
-public class TodoController {
+public class SchedulerController {
 
     @Autowired
     TodoService service;
@@ -48,16 +49,27 @@ public class TodoController {
 
     @RequestMapping(value = "/list-todos", method = RequestMethod.GET)
     public String showTodos(ModelMap model) {
-//		String name = getLoggedInUserName(model);
-//		model.put("todos", service.retrieveTodos(name));
+        Lesson[][] lessons1 = new Lesson[8][6];
+        Lesson[][] lessons2 = new Lesson[8][6];
 
-//        generateTestData();
-        model.put("lessons", lessonRepository.findAll());
-//        System.out.println("1");
-//        System.out.println("2");
-//        classRoomRepository.save(classRoom);
-//        System.out.println("3");
-        return "list-todos";
+        List<Lesson> lessonWeekNumber = lessonRepository.findByWeekNumber(1);
+        for (Lesson lesson : lessonWeekNumber) {
+            Integer lessonNumber = lesson.getLessonNumber();
+            Integer weekDay = lesson.getWeekDay();
+            lessons1[lessonNumber - 1][weekDay - 1] = lesson;
+        }
+        System.out.println(lessons1);
+        List<Lesson> lessonWeekNumber2 = lessonRepository.findByWeekNumber(2);
+        for (Lesson lesson : lessonWeekNumber2) {
+            Integer lessonNumber = lesson.getLessonNumber();
+            Integer weekDay = lesson.getWeekDay();
+            lessons2[lessonNumber - 1][weekDay - 1] = lesson;
+        }
+
+        model.put("lesson1", lessons1);
+        model.put("lesson2", lessons2);
+
+        return "scheduler";
     }
 
     private void generateTestData() {
