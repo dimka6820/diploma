@@ -11,7 +11,7 @@ public class Lesson {
     @GeneratedValue
     private Long id;
     @ManyToOne
-    private ClassRoom classroum;
+    private ClassRoom classRoom;
     @ManyToOne
     private Teacher teacher;
     @ManyToOne
@@ -27,9 +27,9 @@ public class Lesson {
     public Lesson() {
     }
 
-    public Lesson(ClassRoom classroum, Teacher teacher, Discipline discipline, Group group, Integer weekNumber, Integer weekDay, Integer lessonNumber, Boolean done, Boolean canceled) {
+    public Lesson(ClassRoom classRoom, Teacher teacher, Discipline discipline, Group group, Integer weekNumber, Integer weekDay, Integer lessonNumber, Boolean done, Boolean canceled) {
         this.id = id;
-        this.classroum = classroum;
+        this.classRoom = classRoom;
         this.teacher = teacher;
         this.discipline = discipline;
         this.group = group;
@@ -48,12 +48,12 @@ public class Lesson {
         this.id = id;
     }
 
-    public ClassRoom getClassroum() {
-        return classroum;
+    public ClassRoom getClassRoom() {
+        return classRoom;
     }
 
-    public void setClassroum(ClassRoom classroum) {
-        this.classroum = classroum;
+    public void setClassRoom(ClassRoom classRoom) {
+        this.classRoom = classRoom;
     }
 
     public Teacher getTeacher() {
