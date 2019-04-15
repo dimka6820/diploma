@@ -1,4 +1,4 @@
-<%@ include file="../common/header.jspf" %>
+﻿<%@ include file="../common/header.jspf" %>
 <%@ include file="../common/navigation.jspf" %>
 
 	<div class="container">
@@ -6,13 +6,13 @@
 			<caption>Нечетная неделя</caption>
 			<thead>
                 <tr>
-                    <th>Para</th>
-                    <th>Pn</th>
-                    <th>Vt</th>
-                    <th>Sr</th>
-                    <th>Cht</th>
-                    <th>Pt</th>
-                    <th>Sb</th>
+                    <th>Пара</th>
+                    <th>Пн</th>
+                    <th>Вт</th>
+                    <th>Ср</th>
+                    <th>Чт</th>
+                    <th>Пт</th>
+                    <th>Сб</th>
                 </tr>
 			</thead>
 			<tbody>
@@ -20,7 +20,7 @@
 			        <tr>
 			            <td height="140" width="140">${status.index+1}</td>
                         <c:forEach items="${lesson}" var="currentLesson"  >
-                        <td height="140" width="140" class="align-middle">
+                        <td align="center" height="140" width="140">
                             <c:if test="${not empty currentLesson}">
                                  ${currentLesson.id} </br>
                                  ${currentLesson.teacher.lastname}
@@ -65,13 +65,13 @@
 			<caption>Четная неделя</caption>
 			<thead>
                 <tr>
-                    <th>Para</th>
-                    <th>Pn</th>
-                    <th>Vt</th>
-                    <th>Sr</th>
-                    <th>Cht</th>
-                    <th>Pt</th>
-                    <th>Sb</th>
+                    <th>Пара</th>
+                    <th>Пн</th>
+                    <th>Вт</th>
+                    <th>Ср</th>
+                    <th>Чт</th>
+                    <th>Пт</th>
+                    <th>Сб</th>
                 </tr>
 			</thead>
 			<tbody>
