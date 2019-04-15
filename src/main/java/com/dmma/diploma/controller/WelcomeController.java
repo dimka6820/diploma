@@ -57,7 +57,8 @@ public class WelcomeController {
 //            flag = false;
         capture = new VideoCapture();
         capture.open(0);
-        capture.toString();
+        System.out.println(capture.toString());
+        capture.open(2);
 //            if (capture.isOpened()) {
         FindMoves findMoves = new FindMoves(capture);
 //                Runnable frameGrabber = () -> {

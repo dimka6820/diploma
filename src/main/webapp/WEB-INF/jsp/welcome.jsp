@@ -6,13 +6,13 @@
 
 </div>
 
-<img src="cover=${book.id}">
+
 
   <div class="wrapper">
    <video id="video" width="400" height="300"></video>
   </div>
 <script>
-//      (function() {
+//      (function() {<img src="cover=${book.id}">
 //           var video = document.getElementById('video');
 //             alert(video);
 //var constraints = {

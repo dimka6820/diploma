@@ -1,6 +1,7 @@
 package com.dmma.diploma.controller;
 
-import com.dmma.diploma.model.*;
+import com.dmma.diploma.model.Lesson;
+import com.dmma.diploma.model.Todo;
 import com.dmma.diploma.repository.*;
 import com.dmma.diploma.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -58,7 +58,6 @@ public class SchedulerController {
             Integer weekDay = lesson.getWeekDay();
             lessons1[lessonNumber - 1][weekDay - 1] = lesson;
         }
-        System.out.println(lessons1);
         List<Lesson> lessonWeekNumber2 = lessonRepository.findByWeekNumber(2);
         for (Lesson lesson : lessonWeekNumber2) {
             Integer lessonNumber = lesson.getLessonNumber();
@@ -69,69 +68,7 @@ public class SchedulerController {
         model.put("lesson1", lessons1);
         model.put("lesson2", lessons2);
 
-        return "scheduler";
-    }
-
-    private void generateTestData() {
-        ClassRoom classRoom = new ClassRoom(201, "new");
-        classRoomRepository.saveAndFlush(classRoom);
-
-        Teacher teacher = new Teacher();
-        Discipline discipline = new Discipline();
-        discipline.setName("qwerty");
-        teacher.setName("Alex");
-        teacher.setNumber("123");
-        teacher.setSurname("we");
-        teacher.setLastname("wee");
-        teacherRepository.saveAndFlush(teacher);
-        disciplineRepository.saveAndFlush(discipline);
-        teacher.setDisciplines(Arrays.asList(discipline));
-        discipline.setTeachers(Arrays.asList(teacher));
-
-        Group ifst31 = new Group("IFST31");
-        groupRepository.saveAndFlush(ifst31);
-
-
-        lessonRepository.saveAndFlush(
-                new Lesson(
-                        classRoom,
-                        teacher,
-                        discipline,
-                        ifst31,
-                        1,
-                        1,
-                        1,
-                        false,
-                        false
-                )
-        );
-        lessonRepository.saveAndFlush(
-                new Lesson(
-                        classRoom,
-                        teacher,
-                        discipline,
-                        ifst31,
-                        1,
-                        3,
-                        1,
-                        false,
-                        false
-                )
-        );
-        lessonRepository.saveAndFlush(
-                new Lesson(
-                        classRoom,
-                        teacher,
-                        discipline,
-                        ifst31,
-                        1,
-                        2,
-                        1,
-                        false,
-                        false
-                )
-        );
-
+        return "scheduler/scheduler";
     }
 
     private String getLoggedInUserName(ModelMap model) {
@@ -153,12 +90,8 @@ public class SchedulerController {
     }
 
     @RequestMapping(value = "/delete-todo", method = RequestMethod.GET)
-    public String deleteTodo(@RequestParam int id) {
-
-        if (id == 1)
-            throw new RuntimeException("Something went wrong");
-
-        service.deleteTodo(id);
+    public String deleteTodo(@RequestParam Long id) {
+        lessonRepository.delete(id);
         return "redirect:/list-todos";
     }
 

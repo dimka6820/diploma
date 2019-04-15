@@ -1,5 +1,5 @@
-<%@ include file="common/header.jspf" %>
-<%@ include file="common/navigation.jspf" %>
+<%@ include file="../common/header.jspf" %>
+<%@ include file="../common/navigation.jspf" %>
 <div class="container">
 	<form:form method="post" commandName="todo">
 		<form:hidden path="id" />
@@ -20,4 +20,4 @@
 		<button type="submit" class="btn btn-success">Add</button>
 	</form:form>
 </div>
-<%@ include file="common/footer.jspf" %>
+<%@ include file="../common/footer.jspf" %>

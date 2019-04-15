@@ -9,15 +9,11 @@ public class ClassRoom {
     @Id
     @GeneratedValue
     private Long id;
-    private Integer number;
+    private String number;
+    private Integer body;
     private String camera;
 
     public ClassRoom() {
-    }
-
-    public ClassRoom(Integer number, String camera) {
-        this.number = number;
-        this.camera = camera;
     }
 
     public Long getId() {
@@ -28,19 +24,27 @@ public class ClassRoom {
         this.id = id;
     }
 
-    public Integer getNumber() {
-        return number;
-    }
-
-    public void setNumber(Integer number) {
-        this.number = number;
-    }
-
     public String getCamera() {
         return camera;
     }
 
     public void setCamera(String camera) {
         this.camera = camera;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public Integer getBody() {
+        return body;
+    }
+
+    public void setBody(Integer body) {
+        this.body = body;
     }
 }

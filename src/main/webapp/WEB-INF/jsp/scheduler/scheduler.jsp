@@ -1,5 +1,5 @@
-<%@ include file="common/header.jspf" %>
-<%@ include file="common/navigation.jspf" %>
+<%@ include file="../common/header.jspf" %>
+<%@ include file="../common/navigation.jspf" %>
 
 	<div class="container">
 		<table class="table table-bordered">
@@ -24,7 +24,17 @@
                             <c:if test="${not empty currentLesson}">
                                  ${currentLesson.id} </br>
                                  ${currentLesson.teacher.lastname}
+                                 <br/>
+                                 <a type="button" class="btn btn-success"
+                                    href="/update-todo?id=${currentLesson.id}">Update</a>
+                                    <a type="button" class="btn btn-warning"
+                                        href="/delete-todo?id=${currentLesson.id}">Delete</a>
                             </c:if>
+
+                            <c:if test="${empty currentLesson}">
+                                <a type="button" class="btn btn-warning" href="/add-todo">Add</a>
+                            </c:if>
+
                         </td>
                        </c:forEach>
                     </tr>
@@ -73,6 +83,15 @@
                             <c:if test="${not empty currentLesson}">
                                  ${currentLesson.id} </br>
                                  ${currentLesson.teacher.lastname}
+                                 <td><a type="button" class="btn btn-success"
+                                 	href="/update-todo?id=${todo.id}">Update</a></td>
+                                 <td><a type="button" class="btn btn-warning"
+                                 	href="/delete-todo?id=${todo.id}">Delete</a></td>
+
+                            </c:if>
+
+                            <c:if test="${empty currentLesson}">
+                                <a type="button" class="btn btn-warning" href="/add-todo">Add</a>
                             </c:if>
                         </td>
                        </c:forEach>
@@ -82,4 +101,4 @@
 		</table>
 	</div>
 
-<%@ include file="common/footer.jspf" %>
+<%@ include file="../common/footer.jspf" %>
