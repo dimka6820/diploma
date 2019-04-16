@@ -1,5 +1,6 @@
 package com.dmma.diploma.controller;
 
+import com.dmma.diploma.model.ClassRoom;
 import com.dmma.diploma.model.Lesson;
 import com.dmma.diploma.model.Todo;
 import com.dmma.diploma.repository.*;
@@ -47,28 +48,35 @@ public class SchedulerController {
                 dateFormat, false));
     }
 
-    @RequestMapping(value = "/list-todos", method = RequestMethod.GET)
-    public String showTodos(ModelMap model) {
-        Lesson[][] lessons1 = new Lesson[8][6];
-        Lesson[][] lessons2 = new Lesson[8][6];
+    @RequestMapping(value = "/classroom", method = RequestMethod.GET)
+    public String showClassRoom(ModelMap model) {
+        List<ClassRoom> classRooms = classRoomRepository.findAll();
+        model.put("classrooms", classRooms);
 
-        List<Lesson> lessonWeekNumber = lessonRepository.findByWeekNumber(1);
+        return "scheduler/classroom";
+    }
+
+    @RequestMapping(value = "/scheduler", method = RequestMethod.GET)
+    public String showScheduler(ModelMap model, @RequestParam Integer body, @RequestParam String number) {
+
+        ClassRoom classRoom = classRoomRepository.findByNumberAndBody(number, body);
+
+        model.put("lesson1", getLessonMatrix(1, classRoom));
+        model.put("lesson2", getLessonMatrix(2, classRoom));
+
+        return "scheduler/scheduler";
+    }
+
+    private Lesson[][] getLessonMatrix(int weekNumber, ClassRoom classRoom) {
+        Lesson[][] lessons = new Lesson[8][6];
+        List<Lesson> lessonWeekNumber = lessonRepository.findByWeekNumberAndClassRoom(weekNumber, classRoom);
         for (Lesson lesson : lessonWeekNumber) {
             Integer lessonNumber = lesson.getLessonNumber();
             Integer weekDay = lesson.getWeekDay();
-            lessons1[lessonNumber - 1][weekDay - 1] = lesson;
-        }
-        List<Lesson> lessonWeekNumber2 = lessonRepository.findByWeekNumber(2);
-        for (Lesson lesson : lessonWeekNumber2) {
-            Integer lessonNumber = lesson.getLessonNumber();
-            Integer weekDay = lesson.getWeekDay();
-            lessons2[lessonNumber - 1][weekDay - 1] = lesson;
+            lessons[lessonNumber - 1][weekDay - 1] = lesson;
         }
 
-        model.put("lesson1", lessons1);
-        model.put("lesson2", lessons2);
-
-        return "scheduler/scheduler";
+        return lessons;
     }
 
     private String getLoggedInUserName(ModelMap model) {
