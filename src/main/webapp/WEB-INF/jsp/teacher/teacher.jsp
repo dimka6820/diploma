@@ -1,9 +1,20 @@
 ﻿<%@ include file="../common/header.jspf" %>
 <%@ include file="../common/navigation.jspf" %>
-
-<div class="container">
+ Welcome Back, <sec:authentication property="name"/>
+<sec:authorize access= "hasRole('USER')" var="isUSer"/>
+<sec:authorize  access="hasRole('USER')">
+  Logout
+</sec:authorize>
+<sec:authorize access="hasAnyRole('ADMIN')">
+            <div class="container">
+            <a class="btn btn-success" href="/add-teacher">Добавить нового преподавателя</a>
+                                   </div>
+</sec:authorize>
+        <c:if test= "${isUSer}">
+            <div class="container">
 		<a class="btn btn-success" href="/add-teacher">Добавить нового преподавателя</a>
 </div>
+</c:if>
 <br/>
 <div class="container">
     <table class="table table-bordered">
