@@ -7,6 +7,7 @@
 		<ul class="nav navbar-nav">
 			<li><a href="/classroom">Расписание</a></li>
 			<li><a href="/camera">Камеры</a></li>
+			<li><a href="/teacher">Преподаватели</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="/logout">Выйти</a></li>

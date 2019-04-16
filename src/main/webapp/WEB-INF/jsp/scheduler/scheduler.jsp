@@ -30,8 +30,8 @@
                              <br/>
                              <a type="button" class="btn btn-warning"
                                 href="/update-todo?id=${currentLesson.id}">Update</a>
-                                <a type="button" class="btn btn-danger"
-                                    href="/delete-todo?id=${currentLesson.id}">Delete</a>
+                             <a type="button" class="btn btn-danger"
+                                 href="/delete-todo?id=${currentLesson.id}">Delete</a>
                         </c:if>
 
                         <c:if test="${empty currentLesson}">

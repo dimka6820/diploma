@@ -22,20 +22,20 @@ public class ClassRoomEditorController {
     ClassRoomRepository classRoomRepository;
 
     @RequestMapping(value = "/add-classroom", method = RequestMethod.GET)
-    public String showClassRoom(ModelMap model) {
+    public String showClassRooms(ModelMap model) {
         model.addAttribute("classroom", new ClassRoom());
 
         return "entity_editor/class_room_editor";
     }
 
     @RequestMapping(value = "/add-classroom", method = RequestMethod.POST)
-    public String addTodo(ModelMap model, @Valid ClassRoom classRoom, BindingResult result) {
+    public String addClassRoom(ModelMap model, @Valid ClassRoom classRoom, BindingResult result) {
         classRoomRepository.saveAndFlush(classRoom);
         return "redirect:/classroom";
     }
 
     @RequestMapping(value = "/remove-classroom", method = RequestMethod.GET)
-    public String deleteTodo(@RequestParam Long id) {
+    public String deleteClassRoom(@RequestParam Long id) {
         classRoomRepository.delete(id);
         return "redirect:/classroom";
     }
