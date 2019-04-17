@@ -3,38 +3,38 @@
 
 <sec:authorize access="hasAnyRole('ADMIN')">
     <div class="container">
-        <a class="btn btn-success" href="/add-teacher">Добавить нового преподавателя</a>
+        <a class="btn btn-success" href="/add-discipline">Добавить новый предмет</a>
     </div>
 </sec:authorize>
 
 <div class="container">
     <table class="table table-bordered">
-    	<caption class="text-center h3">Преподаватели</caption>
+    	<caption class="text-center h3">Предметы</caption>
     	<thead>
             <tr>
-                <th class="text-center">Преподаватель</th>
-                <th class="text-center">Пары</th>
+                <th class="text-center">Предмет</th>
+                <th class="text-center">Преподаватели</th>
                 <sec:authorize access="hasAnyRole('ADMIN')"><th class="text-center">Управление</th></sec:authorize>
 
             </tr>
     	</thead>
     	<tbody>
-            <c:forEach items="${teachers}" var="teacher">
+            <c:forEach items="${disciplines}" var="discipline">
                 <tr>
-                    <td>${teacher.surname} ${teacher.name} ${teacher.lastname}</td>
+                    <td>${discipline.name}</td>
                     <td>
                         <ul>
-                            <c:forEach items="${teacher.disciplines}" var="discipline">
-                                <li>${discipline.name}</li>
+                            <c:forEach items="${discipline.teachers}" var="teacher">
+                                <li>${teacher.surname} ${teacher.name} ${teacher.lastname}</li>
                             </c:forEach>
                         </ul>
                    </td>
                    <sec:authorize access="hasAnyRole('ADMIN')">
                         <td>
                               <a type="button" class="btn btn-warning"
-                                 href="/update-teacher?id=${teacher.id}">Обновить</a>
+                                 href="/update-discipline?id=${discipline.id}">Обновить</a>
                               <a type="button" class="btn btn-danger"
-                                  href="/remove-teacher?id=${teacher.id}">Удалить</a>
+                                  href="/remove-discipline?id=${discipline.id}">Удалить</a>
                         </td>
                    </sec:authorize>
                 </tr>

@@ -1,9 +1,11 @@
 package com.dmma.diploma.controller.entity_edit_controller;
 
 import com.dmma.diploma.model.ClassRoom;
+import com.dmma.diploma.model.Discipline;
 import com.dmma.diploma.model.Teacher;
 import com.dmma.diploma.model.Todo;
 import com.dmma.diploma.repository.ClassRoomRepository;
+import com.dmma.diploma.repository.DisciplineRepository;
 import com.dmma.diploma.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,17 +16,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class TeacherEditorController {
 
     @Autowired
     TeacherRepository teacherRepository;
+    @Autowired
+    DisciplineRepository disciplineRepository;
 
     @RequestMapping(value = "/add-teacher", method = RequestMethod.GET)
     public String showTeachers(ModelMap model) {
         model.addAttribute("teacher", new Teacher());
+        Map<Long, String> disciplineList = new LinkedHashMap<Long, String>();
+        List<Discipline> disciplines = disciplineRepository.findAll();
+        for (Discipline discipline : disciplines) {
+            disciplineList.put(discipline.getId(), discipline.getName());
+        }
+        model.addAttribute("disciplineList", disciplineList);
 
         return "entity_editor/teacher_editor";
     }
@@ -45,6 +57,14 @@ public class TeacherEditorController {
     public String showUpdateTeacher(@RequestParam Long id, ModelMap model) {
         Teacher teacher = teacherRepository.findOne(id);
         model.put("teacher", teacher);
+
+        Map<Long, String> disciplineList = new LinkedHashMap<Long, String>();
+        List<Discipline> disciplines = disciplineRepository.findAll();
+        for (Discipline discipline : disciplines) {
+            disciplineList.put(discipline.getId(), discipline.getName());
+        }
+        model.addAttribute("disciplineList", disciplineList);
+
         return "entity_editor/teacher_editor";
     }
 
