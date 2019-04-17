@@ -40,6 +40,15 @@ public class Lesson {
         this.canceled = canceled;
     }
 
+    public Lesson(ClassRoom classRoom, Integer weekNumber, Integer weekDay, Integer lessonNumber) {
+        this.classRoom = classRoom;
+        this.weekNumber = weekNumber;
+        this.weekDay = weekDay;
+        this.lessonNumber = lessonNumber;
+        done = false;
+        canceled = false;
+    }
+
     public Long getId() {
         return id;
     }
@@ -118,5 +127,23 @@ public class Lesson {
 
     public void setCanceled(Boolean canceled) {
         this.canceled = canceled;
+    }
+
+    @Override
+    public String toString() {
+        return "Lesson{" +
+                "id=" + id +
+                ", classRoom=" + classRoom +
+                ", classRoom.getId=" + classRoom.getId() +
+                ", classRoom.getBody=" + classRoom.getBody() +
+                ", teacher=" + teacher +
+                ", discipline=" + discipline +
+                ", group=" + group +
+                ", weekNumber=" + weekNumber +
+                ", weekDay=" + weekDay +
+                ", lessonNumber=" + lessonNumber +
+                ", done=" + done +
+                ", canceled=" + canceled +
+                '}';
     }
 }

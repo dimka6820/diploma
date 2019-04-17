@@ -16,26 +16,26 @@
             </tr>
 		</thead>
 		<tbody>
-		    <c:forEach items="${lesson1}" var="lesson" varStatus="status">
+		    <c:forEach items="${lesson1}" var="lesson" varStatus="number">
 		        <tr>
-		            <td class="text-center" height="140" width="140">${status.index+1}</td>
-                    <c:forEach items="${lesson}" var="currentLesson"  >
+		            <td class="text-center" height="140" width="140">${number.index+1}</td>
+                    <c:forEach items="${lesson}" var="currentLesson" varStatus="day">
                     <td class="text-center" height="140" width="140">
                         <c:if test="${not empty currentLesson}">
                              <b>${currentLesson.classRoom.body}/${currentLesson.classRoom.number}</b>
                              </br>
                              ${currentLesson.discipline.name}
                              <br/>
-                             ${currentLesson.teacher.lastname}
+                             ${currentLesson.teacher.surname}
                              <br/>
                              <a type="button" class="btn btn-warning"
-                                href="/update-todo?id=${currentLesson.id}">Update</a>
+                                href="/update-lesson?id=${currentLesson.id}">Update</a>
                              <a type="button" class="btn btn-danger"
-                                 href="/delete-todo?id=${currentLesson.id}">Delete</a>
+                                 href="/delete-lesson?id=${currentLesson.id}&classRoomId=${classRoom}">Delete</a>
                         </c:if>
 
                         <c:if test="${empty currentLesson}">
-                            <a type="button" class="btn btn-success" href="/add-todo">Add</a>
+                            <a type="button" class="btn btn-success" href="/add-lesson?week=1&day=${day.index+1}&number=${number.index+1}&classRoom=${classRoom}">Add</a>
                         </c:if>
 
                     </td>
@@ -78,26 +78,26 @@
             </tr>
 		</thead>
 		<tbody>
-		    <c:forEach items="${lesson2}" var="lesson" varStatus="status">
+		    <c:forEach items="${lesson2}" var="lesson" varStatus="number">
 		        <tr>
-		            <td class="text-center" height="140" width="140">${status.index+1}</td>
-                    <c:forEach items="${lesson}" var="currentLesson"  >
+		            <td class="text-center" height="140" width="140">${number.index+1}</td>
+                    <c:forEach items="${lesson}" var="currentLesson"  varStatus="day">
                     <td class="text-center" height="140" width="140">
                         <c:if test="${not empty currentLesson}">
                              <b>${currentLesson.classRoom.body}/${currentLesson.classRoom.number}</b>
                              </br>
                              ${currentLesson.discipline.name}
                              <br/>
-                             ${currentLesson.teacher.lastname}
+                             ${currentLesson.teacher.surname}
                              <br/>
                              <a type="button" class="btn btn-warning"
                                 href="/update-todo?id=${currentLesson.id}">Update</a>
                                 <a type="button" class="btn btn-danger"
-                                    href="/delete-todo?id=${currentLesson.id}">Delete</a>
+                                    href="/delete-todo?id=${currentLesson.id}&classRoomId=${classRoom}">Delete</a>
                         </c:if>
 
                         <c:if test="${empty currentLesson}">
-                            <a type="button" class="btn btn-success" href="/add-todo">Add</a>
+                            <a type="button" class="btn btn-success" href="/add-lesson?week=2&day=${day.index+1}&number=${number.index+1}&classRoom=${classRoom}">Add</a>
                         </c:if>
 
                     </td>

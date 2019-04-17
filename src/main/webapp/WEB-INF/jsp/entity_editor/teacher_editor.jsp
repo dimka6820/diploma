@@ -28,7 +28,7 @@
 		</fieldset>
 
 		<fieldset class="form-group">
-		    <form:label path="number">Предметы</form:label>
+		    <form:label path="disciplines">Предметы</form:label>
             <form:select path="disciplines" items="${disciplineList}"
                 multiple="true" size="5" class="form-control" />
 		</fieldset>
