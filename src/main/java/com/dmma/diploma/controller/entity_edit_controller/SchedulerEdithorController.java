@@ -40,19 +40,8 @@ public class SchedulerEdithorController {
     public String showAddTodoPage(ModelMap model, @RequestParam Integer week, @RequestParam Integer day, @RequestParam Integer number, @RequestParam Long classRoom) {
         model.addAttribute("lesson", new Lesson(classRoomRepository.findOne(classRoom), week, day, number));
 
-        Map<Long, String> disciplineList = new LinkedHashMap<Long, String>();
-        List<Discipline> disciplines = disciplineRepository.findAll();
-        for (Discipline discipline : disciplines) {
-            disciplineList.put(discipline.getId(), discipline.getName());
-        }
-        model.addAttribute("disciplineList", disciplineList);
-
-        Map<Long, String> teacherList = new LinkedHashMap<Long, String>();
         List<Teacher> teachers = teacherRepository.findAll();
-        for (Teacher teacher : teachers) {
-            teacherList.put(teacher.getId(), teacher.getSurname() + " " + teacher.getName() + " " + teacher.getLastname());
-        }
-        model.addAttribute("teacherList", teacherList);
+        model.addAttribute("teachers", teachers);
 
 
         return "entity_editor/scheduler_editor";
@@ -79,19 +68,8 @@ public class SchedulerEdithorController {
         Lesson lesson = lessonRepository.findOne(id);
         model.addAttribute("lesson", lesson);
 
-        Map<Long, String> disciplineList = new LinkedHashMap<Long, String>();
-        List<Discipline> disciplines = disciplineRepository.findAll();
-        for (Discipline discipline : disciplines) {
-            disciplineList.put(discipline.getId(), discipline.getName());
-        }
-        model.addAttribute("disciplineList", disciplineList);
-
-        Map<Long, String> teacherList = new LinkedHashMap<Long, String>();
         List<Teacher> teachers = teacherRepository.findAll();
-        for (Teacher teacher : teachers) {
-            teacherList.put(teacher.getId(), teacher.getSurname() + " " + teacher.getName() + " " + teacher.getLastname());
-        }
-        model.addAttribute("teacherList", teacherList);
+        model.addAttribute("teachers", teachers);
 
         return "entity_editor/scheduler_editor";
     }

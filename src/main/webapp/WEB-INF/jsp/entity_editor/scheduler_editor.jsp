@@ -12,17 +12,43 @@
 
 		<fieldset class="form-group">
 		    <form:label path="teacher">Преподаватель</form:label>
-            <form:select path="teacher" items="${teacherList}"
-                multiple="false" size="5" class="form-control" required="required" />
+            <form:select id="first" path="teacher" multiple="false" size="5" class="form-control" required="required">
+                <c:forEach items="${teachers}" var="teacher">
+                    <option value="${teacher.id}" data-id="${teacher.id}">
+                        ${teacher.surname} ${teacher.name} ${teacher.lastname}
+                    </option>
+                </c:forEach>
+            </form:select>
 		</fieldset>
 
 		<fieldset class="form-group">
 		    <form:label path="discipline">Предмет</form:label>
-            <form:select path="discipline" items="${disciplineList}"
-                multiple="false" size="5" class="form-control" required="required" />
-		</fieldset>
+            <form:select id="second" path="discipline" multiple="false" size="5" class="form-control" required="required">
+                <c:forEach items="${teachers}" var="teacher">
+                    <c:forEach items="${teacher.disciplines}" var="discipline">
+                        <option class="discipline" value="${discipline.id}" data-id="${teacher.id}">${discipline.name}</option>
+                    </c:forEach>
+                </c:forEach>
+            </form:select>
+        </fieldset>
 
 		<button type="submit" class="btn btn-success">Добавить</button>
 	</form:form>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $("#first").find("option").click(function () {
+            id = $(this).data("id");
+            $("#second").find("option").each(function () {
+                $(this).css("display", "block");
+                if ($(this).data("id") !== id) {
+                    $(this).css("display", "none");
+                }
+            });
+            $("#second").change();
+        });
+    });
+</script>
+
 <%@ include file="../common/footer.jspf" %>
