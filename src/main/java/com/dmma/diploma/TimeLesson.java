@@ -1,8 +1,7 @@
 package com.dmma.diploma;
 
-import java.math.BigInteger;
-
-public enum  TimeLesson {
+public enum
+TimeLesson {
     FIRST(1, 8, 0),
     SECOND(2, 9, 45),
     EMPTY(3, 11, 30);

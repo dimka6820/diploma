@@ -28,14 +28,12 @@
                              <br/>
                              ${currentLesson.teacher.surname}
                              <br/>
-                             <a type="button" class="btn btn-warning"
-                                href="/update-lesson?id=${currentLesson.id}">Update</a>
                              <a type="button" class="btn btn-danger"
-                                 href="/delete-lesson?id=${currentLesson.id}&classRoomId=${classRoom}">Delete</a>
+                                 href="/delete-lesson?id=${currentLesson.id}&classRoomId=${classRoom}">Удалить</a>
                         </c:if>
 
                         <c:if test="${empty currentLesson}">
-                            <a type="button" class="btn btn-success" href="/add-lesson?week=1&day=${day.index+1}&number=${number.index+1}&classRoom=${classRoom}">Add</a>
+                            <a type="button" class="btn btn-success" href="/add-lesson?week=1&day=${day.index+1}&number=${number.index+1}&classRoom=${classRoom}">Добавить</a>
                         </c:if>
 
                     </td>
@@ -90,14 +88,12 @@
                              <br/>
                              ${currentLesson.teacher.surname}
                              <br/>
-                             <a type="button" class="btn btn-warning"
-                                href="/update-todo?id=${currentLesson.id}">Update</a>
                                 <a type="button" class="btn btn-danger"
-                                    href="/delete-todo?id=${currentLesson.id}&classRoomId=${classRoom}">Delete</a>
+                                    href="/delete-todo?id=${currentLesson.id}&classRoomId=${classRoom}">Удалить</a>
                         </c:if>
 
                         <c:if test="${empty currentLesson}">
-                            <a type="button" class="btn btn-success" href="/add-lesson?week=2&day=${day.index+1}&number=${number.index+1}&classRoom=${classRoom}">Add</a>
+                            <a type="button" class="btn btn-success" href="/add-lesson?week=2&day=${day.index+1}&number=${number.index+1}&classRoom=${classRoom}">Добавить</a>
                         </c:if>
 
                     </td>

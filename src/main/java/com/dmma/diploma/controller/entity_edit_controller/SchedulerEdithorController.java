@@ -1,10 +1,11 @@
 package com.dmma.diploma.controller.entity_edit_controller;
 
 import com.dmma.diploma.model.ClassRoom;
-import com.dmma.diploma.model.Discipline;
 import com.dmma.diploma.model.Lesson;
 import com.dmma.diploma.model.Teacher;
-import com.dmma.diploma.repository.*;
+import com.dmma.diploma.repository.ClassRoomRepository;
+import com.dmma.diploma.repository.LessonRepository;
+import com.dmma.diploma.repository.TeacherRepository;
 import com.dmma.diploma.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class SchedulerEdithorController {
@@ -28,16 +27,12 @@ public class SchedulerEdithorController {
     @Autowired
     ClassRoomRepository classRoomRepository;
     @Autowired
-    GroupRepository groupRepository;
-    @Autowired
     TeacherRepository teacherRepository;
-    @Autowired
-    DisciplineRepository disciplineRepository;
     @Autowired
     LessonRepository lessonRepository;
 
     @RequestMapping(value = "/add-lesson", method = RequestMethod.GET)
-    public String showAddTodoPage(ModelMap model, @RequestParam Integer week, @RequestParam Integer day, @RequestParam Integer number, @RequestParam Long classRoom) {
+    public String showAddLessonPage(ModelMap model, @RequestParam Integer week, @RequestParam Integer day, @RequestParam Integer number, @RequestParam Long classRoom) {
         model.addAttribute("lesson", new Lesson(classRoomRepository.findOne(classRoom), week, day, number));
 
         List<Teacher> teachers = teacherRepository.findAll();
@@ -48,7 +43,7 @@ public class SchedulerEdithorController {
     }
 
     @RequestMapping(value = "/add-lesson", method = RequestMethod.POST)
-    public String addTodo(ModelMap model, @Valid Lesson lesson, BindingResult result) {
+    public String addLesson(ModelMap model, @Valid Lesson lesson, BindingResult result) {
         lessonRepository.saveAndFlush(lesson);
 
         ClassRoom classRoom = lesson.getClassRoom();
@@ -57,29 +52,9 @@ public class SchedulerEdithorController {
     }
 
     @RequestMapping(value = "/delete-lesson", method = RequestMethod.GET)
-    public String deleteTodo(@RequestParam Long id, @RequestParam Long classRoomId) {
+    public String deleteLesson(@RequestParam Long id, @RequestParam Long classRoomId) {
         lessonRepository.delete(id);
         ClassRoom classRoom = classRoomRepository.getOne(classRoomId);
         return "redirect:/scheduler?body="+classRoom.getBody()+"&number="+classRoom.getNumber();
     }
-
-    @RequestMapping(value = "/update-lesson", method = RequestMethod.GET)
-    public String showUpdateTodoPage(@RequestParam Long id, ModelMap model) {
-        Lesson lesson = lessonRepository.findOne(id);
-        model.addAttribute("lesson", lesson);
-
-        List<Teacher> teachers = teacherRepository.findAll();
-        model.addAttribute("teachers", teachers);
-
-        return "entity_editor/scheduler_editor";
-    }
-
-    @RequestMapping(value = "/update-lesson", method = RequestMethod.POST)
-    public String updateTodo(ModelMap model, @Valid Lesson lesson,
-                             BindingResult result) {
-        lessonRepository.saveAndFlush(lesson);
-
-        return "redirect:/scheduler?body=\"+classRoom.getBody()+\"&number=\"+classRoom.getNumber()";
-    }
-
 }
