@@ -2,10 +2,7 @@ package com.dmma.diploma.controller;
 
 import com.dmma.diploma.model.security.Role;
 import com.dmma.diploma.model.security.User;
-import com.dmma.diploma.opencv.FindMoves;
 import com.dmma.diploma.repository.UserRepository;
-import org.opencv.core.Mat;
-import org.opencv.videoio.VideoCapture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,13 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.io.*;
 import java.util.Collections;
-import java.util.concurrent.ScheduledExecutorService;
 
 @Controller
 public class WelcomeController {
     private boolean flag = true;
-    VideoCapture capture;
-    ScheduledExecutorService timer;
 
     @RequestMapping("/cover={bookID}")
     public ResponseEntity<byte[]> testphoto(
@@ -68,37 +62,6 @@ public class WelcomeController {
 //        userRepository.save(user);
 
 
-//        if (flag) {
-//            flag = false;
-        capture = new VideoCapture();
-        capture.open(0);
-//            if (capture.isOpened()) {
-        FindMoves findMoves = new FindMoves(capture);
-//                Runnable frameGrabber = () -> {
-        Mat frame = findMoves.findMoves();
-//                };
-//
-//                timer = Executors.newSingleThreadScheduledExecutor();
-//                timer.scheduleAtFixedRate(frameGrabber, 0, 33, TimeUnit.MILLISECONDS);
-//
-//            } else {
-//                System.err.println("Failed to open the camera connection...");
-//            }
-//        } else {
-//            flag = true;
-//            if (timer != null && !timer.isShutdown()) {
-//                try {
-//                    timer.shutdown();
-//                    timer.awaitTermination(33, TimeUnit.MILLISECONDS);
-//                } catch (InterruptedException e) {
-//                    System.err.println("Exception in stopping the frame capture, trying to release the camera now... " + e);
-//                }
-//            }
-//
-//            if (capture.isOpened()) {
-//                capture.release();
-//            }
-//        }
         model.put("name", getLoggedinUserName());
         return "welcome";
     }
