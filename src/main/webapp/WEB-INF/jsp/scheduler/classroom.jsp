@@ -8,7 +8,7 @@
 <div class="container">
     <c:forEach items="${classrooms}" var="classroom" varStatus="status">
         <a class="btn btn-default" href="/scheduler?body=${classroom.body}&number=${classroom.number}">${classroom.body}/${classroom.number}</a>
-        -<a class="btn btn-danger" href="/remove-classroom?id=${classroom.id}">Удалить</a>
+        <a class="btn btn-danger" href="/remove-classroom?id=${classroom.id}">Удалить</a>
         <br/>
     </c:forEach>
 </div>

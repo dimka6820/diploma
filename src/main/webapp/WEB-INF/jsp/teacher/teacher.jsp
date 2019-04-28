@@ -14,7 +14,9 @@
             <tr>
                 <th class="text-center">Преподаватель</th>
                 <th class="text-center">Пары</th>
-                <sec:authorize access="hasAnyRole('ADMIN')"><th class="text-center">Управление</th></sec:authorize>
+                <sec:authorize access="hasAnyRole('ADMIN')">
+                    <th class="text-center">Управление</th>
+                </sec:authorize>
 
             </tr>
     	</thead>

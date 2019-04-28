@@ -6,11 +6,13 @@
 	<div class="navbar-collapse">
 		<ul class="nav navbar-nav">
 			<li><a href="/classroom">Расписание</a></li>
-			<li><a href="/camera">Камеры</a></li>
 			<li><a href="/teacher">Преподаватели</a></li>
 			<li><a href="/discipline">Предметы</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
+		    <sec:authorize access="hasAnyRole('ADMIN')">
+                <li><a href="/user">Пользователи</a></li>
+            </sec:authorize>
 			<li><a href="/logout">Выйти</a></li>
 		</ul>
 	</div>
