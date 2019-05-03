@@ -34,7 +34,7 @@
                    <sec:authorize access="hasAnyRole('ADMIN')">
                         <td>
                               <a type="button" class="btn btn-warning"
-                                 href="/update-teacher?id=${teacher.id}">Обновить</a>
+                                 href="/update-teacher?id=${teacher.id}">Изменить</a>
                               <a type="button" class="btn btn-danger"
                                   href="/remove-teacher?id=${teacher.id}">Удалить</a>
                         </td>

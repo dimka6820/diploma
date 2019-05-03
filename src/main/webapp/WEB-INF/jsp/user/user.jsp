@@ -30,7 +30,7 @@
                     <td>${user.active}</td>
                     <td>
                         <a type="button" class="btn btn-warning"
-                                 href="/update-user?id=${user.id}">Обновить</a>
+                           href="/update-user?id=${user.id}">Изменить</a>
                         <a type="button" class="btn btn-danger"
                                   href="/remove-user?id=${user.id}">Удалить</a>
                         </td>

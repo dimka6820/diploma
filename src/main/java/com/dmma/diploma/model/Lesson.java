@@ -25,6 +25,8 @@ public class Lesson {
     private Boolean canceled;
 
     public Lesson() {
+        done = false;
+        canceled = false;
     }
 
     public Lesson(ClassRoom classRoom, Teacher teacher, Discipline discipline, Group group, Integer weekNumber, Integer weekDay, Integer lessonNumber, Boolean done, Boolean canceled) {
@@ -45,8 +47,6 @@ public class Lesson {
         this.weekNumber = weekNumber;
         this.weekDay = weekDay;
         this.lessonNumber = lessonNumber;
-        done = false;
-        canceled = false;
     }
 
     public Long getId() {
@@ -131,19 +131,11 @@ public class Lesson {
 
     @Override
     public String toString() {
-        return "Lesson{" +
-                "id=" + id +
-                ", classRoom=" + classRoom +
-                ", classRoom.getId=" + classRoom.getId() +
-                ", classRoom.getBody=" + classRoom.getBody() +
-                ", teacher=" + teacher +
-                ", discipline=" + discipline +
-                ", group=" + group +
-                ", weekNumber=" + weekNumber +
-                ", weekDay=" + weekDay +
-                ", lessonNumber=" + lessonNumber +
-                ", done=" + done +
-                ", canceled=" + canceled +
-                '}';
+        return id
+                + " "
+                + classRoom.getBody()
+                + "/"
+                + classRoom.getNumber()
+                + "<br/>";
     }
 }

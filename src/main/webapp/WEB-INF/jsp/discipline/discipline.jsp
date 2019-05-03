@@ -32,7 +32,7 @@
                    <sec:authorize access="hasAnyRole('ADMIN')">
                         <td>
                               <a type="button" class="btn btn-warning"
-                                 href="/update-discipline?id=${discipline.id}">Обновить</a>
+                                 href="/update-discipline?id=${discipline.id}">Изменить</a>
                               <a type="button" class="btn btn-danger"
                                   href="/remove-discipline?id=${discipline.id}">Удалить</a>
                         </td>

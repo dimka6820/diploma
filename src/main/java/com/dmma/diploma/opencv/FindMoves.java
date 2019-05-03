@@ -1,16 +1,13 @@
 package com.dmma.diploma.opencv;
 
 import org.opencv.core.*;
-import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
-import org.opencv.videoio.VideoCapture;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FindMoves {
-    private VideoCapture capture = new VideoCapture();
 
     private int sensivity = 30;
     private double maxArea = 30;
@@ -23,11 +20,7 @@ public class FindMoves {
     private Size size = new Size(3, 3);
 
 
-    public FindMoves(VideoCapture capture) {
-        this.capture = capture;
-    }
-
-    public boolean isMovesFound(Mat frameMat) {
+    boolean isMovesFound(Mat frameMat) {
         frameMat.copyTo(frame_current);
 
         Imgproc.GaussianBlur(frame_current, frame_current, size, 0);
@@ -58,10 +51,9 @@ public class FindMoves {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
 
             if (found) {
-                System.out.println("Moved " + s);
+                System.out.println("moved");
                 return true;
             } else {
-                Imgcodecs.imwrite("snapshots/" + s + ".jpg", frameMat);
                 return false;
             }
         }
