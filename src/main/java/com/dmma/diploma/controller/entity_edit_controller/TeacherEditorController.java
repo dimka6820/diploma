@@ -1,10 +1,7 @@
 package com.dmma.diploma.controller.entity_edit_controller;
 
-import com.dmma.diploma.model.ClassRoom;
 import com.dmma.diploma.model.Discipline;
 import com.dmma.diploma.model.Teacher;
-import com.dmma.diploma.model.Todo;
-import com.dmma.diploma.repository.ClassRoomRepository;
 import com.dmma.diploma.repository.DisciplineRepository;
 import com.dmma.diploma.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;

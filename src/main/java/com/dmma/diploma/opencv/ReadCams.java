@@ -1,7 +1,9 @@
 package com.dmma.diploma.opencv;
 
 import com.dmma.diploma.model.Lesson;
+import com.dmma.diploma.model.UnsuccessfulLesson;
 import com.dmma.diploma.service.LessonService;
+import com.dmma.diploma.service.UnsuccessfulLessonService;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
@@ -9,6 +11,8 @@ import org.opencv.videoio.VideoCapture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+
+import java.time.LocalDateTime;
 
 @Controller
 @Scope(value = "prototype")
@@ -20,6 +24,8 @@ public class ReadCams {
 
     @Autowired
     private LessonService lessonService;
+    @Autowired
+    private UnsuccessfulLessonService unsuccessfulLessonService;
 
     public ReadCams() {
     }
@@ -39,7 +45,13 @@ public class ReadCams {
                     lessonService.setDone(lesson);
                 } else {
                     lessonService.setDoneFalse(lesson);
-                    Imgcodecs.imwrite("snapshots/" + lesson.getId() + ".jpg", frameMat);
+                    LocalDateTime now = LocalDateTime.now();
+
+                    String name = "snapshots/" + now.getDayOfYear() + now.getYear() + now.getHour() + now.getMinute() + now.getSecond() + ".jpg";
+                    UnsuccessfulLesson unsuccessfulLesson = new UnsuccessfulLesson(lesson, now, name);
+                    unsuccessfulLessonService.saveAndFlush(unsuccessfulLesson);
+                    System.out.println(unsuccessfulLesson);
+                    Imgcodecs.imwrite(name, frameMat);
                 }
             }
         }
