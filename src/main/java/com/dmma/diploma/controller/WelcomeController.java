@@ -24,14 +24,14 @@ import java.util.List;
 public class WelcomeController {
     private boolean flag = true;
 
-    @RequestMapping("/cover={bookID}")
-    public ResponseEntity<byte[]> testphoto(
-            @PathVariable(value = "bookID") String bookId) throws IOException {
+    @RequestMapping("/cover/{bookID}")
+    public ResponseEntity<byte[]> testphoto(@PathVariable(value = "bookID") String bookId) throws IOException {
+        System.out.println("bookId: " + bookId);
         ByteArrayOutputStream out = null;
         InputStream input = null;
         try {
             out = new ByteArrayOutputStream();
-            input = new BufferedInputStream(new FileInputStream("snapshots/2019-04-07_23-07-08.jpg"));
+            input = new BufferedInputStream(new FileInputStream(bookId));
             int data = 0;
             while ((data = input.read()) != -1) {
                 out.write(data);
@@ -58,14 +58,13 @@ public class WelcomeController {
     private UserRepository userRepository;
     @Autowired
     private LessonRepository lessonRepository;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showWelcomePage(ModelMap model) {
         List<UnsuccessfulLesson> all = unsuccessfulLessonRepository.findAll();
         System.out.println(all);
 
-        List<UnsuccessfulLesson> byLesson = unsuccessfulLessonRepository.findByLesson(lessonRepository.findOne(115L));
-        System.out.println(byLesson);
-
+        model.put("all", all);
         model.put("name", getLoggedinUserName());
         return "welcome";
     }
