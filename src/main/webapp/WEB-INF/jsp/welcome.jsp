@@ -6,10 +6,8 @@
 
 </div>
 
-<img src="cover=${123}">
-
 <c:forEach items="${all}" var="img">
-   ${img.image} <img src="/cover/${img.image}">
+    <img src="cover/${img.image}">
 </c:forEach>
   <div class="wrapper">
    <video id="video" width="400" height="300"></video>

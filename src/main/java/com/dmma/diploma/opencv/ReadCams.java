@@ -1,7 +1,7 @@
 package com.dmma.diploma.opencv;
 
+import com.dmma.diploma.common.Constants;
 import com.dmma.diploma.model.Lesson;
-import com.dmma.diploma.model.UnsuccessfulLesson;
 import com.dmma.diploma.service.LessonService;
 import com.dmma.diploma.service.UnsuccessfulLessonService;
 import org.opencv.core.CvType;
@@ -47,11 +47,11 @@ public class ReadCams {
                     lessonService.setDoneFalse(lesson);
                     LocalDateTime now = LocalDateTime.now();
 
-                    String name = "snapshots/" + now.getDayOfYear() + now.getYear() + now.getHour() + now.getMinute() + now.getSecond() + ".jpg";
-                    UnsuccessfulLesson unsuccessfulLesson = new UnsuccessfulLesson(lesson, now, name);
-                    unsuccessfulLessonService.saveAndFlush(unsuccessfulLesson);
-                    System.out.println(unsuccessfulLesson);
-                    Imgcodecs.imwrite(name, frameMat);
+                    String name = now.format(Constants.DATE_TIME_FORMATTER);
+                    System.out.println(name);
+
+                    unsuccessfulLessonService.saveAndFlush(lesson, name);
+                    Imgcodecs.imwrite(Constants.FOLDER + name + Constants.POSTFIX, frameMat);
                 }
             }
         }
