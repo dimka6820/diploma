@@ -1,14 +1,9 @@
 ﻿<%@ include file="common/header.jspf"%>
 <%@ include file="common/navigation.jspf"%>
 <div class="container">
-	Welcome ${name}!! <a href="/list-todos">Click here</a> to manage your
-	todo's.
-
+    ${name}, Добро пожаловать
 </div>
 
-<c:forEach items="${all}" var="img">
-    <img src="cover/${img.image}">
-</c:forEach>
   <div class="wrapper">
    <video id="video" width="400" height="300"></video>
   </div>

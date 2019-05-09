@@ -1,4 +1,4 @@
-package com.dmma.diploma;
+package com.dmma.diploma.controller;
 
 import com.dmma.diploma.model.UnsuccessfulLesson;
 import com.dmma.diploma.repository.UnsuccessfulLessonRepository;

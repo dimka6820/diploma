@@ -2,8 +2,10 @@ package com.dmma.diploma.controller;
 
 import com.dmma.diploma.model.ClassRoom;
 import com.dmma.diploma.model.Lesson;
+import com.dmma.diploma.model.UnsuccessfulLesson;
 import com.dmma.diploma.repository.ClassRoomRepository;
 import com.dmma.diploma.repository.LessonRepository;
+import com.dmma.diploma.repository.UnsuccessfulLessonRepository;
 import com.dmma.diploma.service.LessonService;
 import com.dmma.diploma.service.TimeLesson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,8 @@ public class SchedulerController {
     @Autowired
     LessonRepository lessonRepository;
     @Autowired
+    UnsuccessfulLessonRepository unsuccessfulLessonRepository;
+    @Autowired
     LessonService lessonService;
 
     @RequestMapping(value = "/classroom", method = RequestMethod.GET)
@@ -38,6 +42,15 @@ public class SchedulerController {
         model.put("currentLessonNumber", TimeLesson.getCurentLessonNumber());
 
         return "scheduler/classroom";
+    }
+
+    @RequestMapping(value = "/lesson", method = RequestMethod.GET)
+    public String showLesson(ModelMap model, @RequestParam Long lessonId) {
+        Lesson lesson = lessonRepository.findOne(lessonId);
+        model.put("lesson", lesson);
+        UnsuccessfulLesson unsuccessfulLesson = unsuccessfulLessonRepository.findByLesson(lesson);
+        model.put("unsuccessfulLesson", unsuccessfulLesson);
+        return "lesson/lesson";
     }
 
     @RequestMapping(value = "/scheduler", method = RequestMethod.GET)

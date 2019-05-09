@@ -14,7 +14,11 @@
         <c:forEach items="${unsuccessfulLessons}" var="unsuccessfulLesson">
             <tr>
                 <td rowspan="${fn:length(unsuccessfulLesson.image)+1}">
-                        ${unsuccessfulLesson.lesson.id}
+                    <a href="/lesson?lessonId=${unsuccessfulLesson.lesson.id}">
+                            ${unsuccessfulLesson.lesson.teacher.surname}
+                            ${unsuccessfulLesson.lesson.teacher.name}
+                            ${unsuccessfulLesson.lesson.teacher.lastname}
+                    </a>
                 </td>
             </tr>
             <c:forEach items="${unsuccessfulLesson.image}" var="image">
