@@ -24,6 +24,10 @@ public class UnsuccessfulLesson {
         this.addImage(image);
     }
 
+    public UnsuccessfulLesson(Lesson lesson) {
+        this.lesson = lesson;
+    }
+
     public Long getId() {
         return id;
     }

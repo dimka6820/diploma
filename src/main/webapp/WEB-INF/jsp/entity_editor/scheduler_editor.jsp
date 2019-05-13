@@ -35,7 +35,7 @@
         </fieldset>
 
         <button type="submit" class="btn btn-success">Добавить</button>
-        <a type="button" class="btn btn-danger" href="/scheduler?body=1&number=201">Отмена</a>
+        <a type="button" class="btn btn-danger" href="/scheduler?body=1&number=416">Отмена</a>
     </form:form>
 </div>
 

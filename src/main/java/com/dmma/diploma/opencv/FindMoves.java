@@ -61,7 +61,6 @@ public class FindMoves {
         index++;
 
         frame_current.copyTo(frame_previous);
-        frameMat.release();
         frame_result.release();
         frame_current.release();
 

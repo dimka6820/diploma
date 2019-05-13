@@ -7,6 +7,7 @@ import java.util.TreeSet;
 
 public enum Role {
     ROLE_USER,
+    ROLE_STATIST,
     ROLE_ADMIN;
 
     public static Set<Role> getAllRoles() {

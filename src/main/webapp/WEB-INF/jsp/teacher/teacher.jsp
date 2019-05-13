@@ -13,7 +13,7 @@
     	<thead>
             <tr>
                 <th class="text-center">Преподаватель</th>
-                <th class="text-center">Пары</th>
+                <th class="text-center">Дисциплины</th>
                 <sec:authorize access="hasAnyRole('ADMIN')">
                     <th class="text-center">Управление</th>
                 </sec:authorize>

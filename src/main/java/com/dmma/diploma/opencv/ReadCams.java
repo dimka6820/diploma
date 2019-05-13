@@ -6,7 +6,6 @@ import com.dmma.diploma.service.LessonService;
 import com.dmma.diploma.service.UnsuccessfulLessonService;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.videoio.VideoCapture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -50,8 +49,9 @@ public class ReadCams {
                     String name = now.format(Constants.DATE_TIME_FORMATTER);
                     System.out.println(name);
 
-                    unsuccessfulLessonService.saveAndFlush(lesson, name);
-                    Imgcodecs.imwrite(Constants.FOLDER + name + Constants.POSTFIX, frameMat);
+                    unsuccessfulLessonService.saveAndFlush(lesson, name, frameMat);
+//                    Imgcodecs.imwrite(Constants.FOLDER + name + Constants.POSTFIX, frameMat);
+                    frameMat.release();
                 }
             }
         }

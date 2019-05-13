@@ -26,7 +26,7 @@
             </td>
         </tr>
         <tr>
-            <th>Номер пары</th>
+            <th>Номер занятия</th>
             <td>
                 ${lesson.lessonNumber}
             </td>

@@ -5,7 +5,7 @@
         <caption class="text-center h3">Непроведеные занятия</caption>
         <thead>
         <tr>
-            <th class="text-center">Пара</th>
+            <th class="text-center">Занятие</th>
             <th class="text-center">Время</th>
             <th class="text-center">Фото</th>
         </tr>
@@ -28,7 +28,7 @@
                             ${image}
                     </td>
                     <td>
-                        <img width="100px" height="100px" src="cover/${image}">
+                        <img class="popup" tabindex="1" src="cover/${image}">
                     </td>
                 </tr>
 

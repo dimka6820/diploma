@@ -4,6 +4,8 @@ import com.dmma.diploma.common.Constants;
 import com.dmma.diploma.model.Lesson;
 import com.dmma.diploma.model.UnsuccessfulLesson;
 import com.dmma.diploma.repository.UnsuccessfulLessonRepository;
+import org.opencv.core.Mat;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -17,7 +19,7 @@ public class UnsuccessfulLessonService {
     private UnsuccessfulLessonRepository unsuccessfulLessonRepository;
 
 
-    public void saveAndFlush(Lesson lesson, String name) {
+    public void saveAndFlush(Lesson lesson, String name, Mat frameMat) {
         System.out.println("UnsuccessfulLessonService");
 
         UnsuccessfulLesson unsuccessfulLesson = unsuccessfulLessonRepository.findByLesson(lesson);
@@ -25,6 +27,7 @@ public class UnsuccessfulLessonService {
         if (unsuccessfulLesson == null) {
             UnsuccessfulLesson newUnsuccessfulLesson = new UnsuccessfulLesson(lesson, name);
             System.out.println("CollectionUtils.isEmpty(byLesson)) ");
+            Imgcodecs.imwrite(Constants.FOLDER + name + Constants.POSTFIX, frameMat);
             unsuccessfulLessonRepository.saveAndFlush(newUnsuccessfulLesson);
             return;
         }
@@ -32,6 +35,7 @@ public class UnsuccessfulLessonService {
         List<String> images = unsuccessfulLesson.getImage();
         if (CollectionUtils.isEmpty(images)) {
             unsuccessfulLesson.addImage(name);
+            Imgcodecs.imwrite(Constants.FOLDER + name + Constants.POSTFIX, frameMat);
             unsuccessfulLessonRepository.saveAndFlush(unsuccessfulLesson);
             return;
         }
@@ -52,6 +56,7 @@ public class UnsuccessfulLessonService {
         if (newMinusFive.isAfter(lastDateTime)) {
             unsuccessfulLesson.addImage(name);
             System.out.println("unsuccessfulLesson1.getImage(): ");
+            Imgcodecs.imwrite(Constants.FOLDER + name + Constants.POSTFIX, frameMat);
             unsuccessfulLessonRepository.saveAndFlush(unsuccessfulLesson);
         }
 

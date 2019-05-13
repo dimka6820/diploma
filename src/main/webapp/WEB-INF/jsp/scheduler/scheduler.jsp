@@ -9,7 +9,7 @@
         <caption class="text-center h3">Нечетная неделя</caption>
         <thead>
         <tr>
-            <th class="text-center">Пара</th>
+            <th class="text-center">Занятие</th>
             <th class="text-center">Пн</th>
             <th class="text-center">Вт</th>
             <th class="text-center">Ср</th>
@@ -29,7 +29,7 @@
                     <c:if test="${currentLesson.canceled}"> bg-warning </c:if>">
 
                         <c:if test="${not empty currentLesson}">
-                            ${currentLesson.id}
+
                             <b>${currentLesson.classRoom.body}/${currentLesson.classRoom.number}</b>
                             </br>
                             ${currentLesson.discipline.name}
@@ -40,6 +40,8 @@
                             <sec:authorize access="hasAnyRole('ADMIN')">
                                 <a type="button" class="btn btn-danger"
                                    href="/delete-lesson?id=${currentLesson.id}&classRoomId=${classRoom}">Удалить</a>
+                            </sec:authorize>
+                            <sec:authorize access="hasAnyRole('ADMIN', 'STATIST')">
                                 <a type="button" class="btn btn-warning"
                                    href="/cancel-lesson?id=${currentLesson.id}&classRoomId=${classRoom}">Отменить</a>
                             </sec:authorize>
@@ -66,7 +68,7 @@
         <caption class="text-center h3">Четная неделя</caption>
         <thead>
         <tr>
-            <th class="text-center">Пара</th>
+            <th class="text-center">Занятие</th>
             <th class="text-center">Пн</th>
             <th class="text-center">Вт</th>
             <th class="text-center">Ср</th>
