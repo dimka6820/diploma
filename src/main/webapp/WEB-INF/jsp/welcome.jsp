@@ -7,6 +7,7 @@
     Вам доступны следующие действия:
     <ul>
         <li><a href="/classroom">Расписание</a></li>
+        <li><a href="/qwert">TEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEST</a></li>
         <li><a href="/teacher">Преподаватели</a></li>
         <li><a href="/discipline">Предметы</a></li>
 
