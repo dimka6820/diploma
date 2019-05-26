@@ -25,7 +25,7 @@ public enum TimeLesson {
 
     public static int getCurentLessonNumber() {
         LocalTime curentTime = getLocalTime();
-
+        System.out.println("curentTime " + curentTime);
         for (TimeLesson timeLesson : values()) {
             LocalTime startTime = timeLesson.getStartTime();
             LocalTime endTime = timeLesson.getEndTime();
@@ -42,7 +42,7 @@ public enum TimeLesson {
         int hour = now.getHour();
         int minute = now.getMinute();
 
-        return LocalTime.of(8, 10);
+        return LocalTime.of(hour, minute);
     }
 
     public LocalTime getStartTime() {

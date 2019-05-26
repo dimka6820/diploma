@@ -131,8 +131,7 @@ public class Lesson {
 
     @Override
     public String toString() {
-        return id
-                + " "
+        return " "
                 + classRoom.getBody()
                 + "/"
                 + classRoom.getNumber()
