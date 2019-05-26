@@ -10,7 +10,18 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <sec:authorize access="hasAnyRole('ADMIN', 'STATIST')">
-                <li><a href="/report">Отчеты</a></li>
+                <li class="dropdown">
+                  <a id="drop1" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Отчеты
+                    <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a href="/report">Все отчеты</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Отчеты по преподавателям</a></li>
+                    <li><a href="#">Отчеты по аудиториям</a></li>
+                  </ul>
+                </li>
             </sec:authorize>
             <sec:authorize access="hasAnyRole('ADMIN')">
                 <li><a href="/user">Пользователи</a></li>
