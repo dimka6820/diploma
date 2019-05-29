@@ -6,8 +6,6 @@ import com.dmma.diploma.pdf_builder.ReportPdfDocumentBuilder;
 import com.dmma.diploma.repository.LessonRepository;
 import com.dmma.diploma.repository.UnsuccessfulLessonRepository;
 import com.dmma.diploma.repository.UserRepository;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -50,19 +48,9 @@ public class WelcomeController {
     @RequestMapping(value = "/qwert", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<InputStreamResource> citiesReport() throws IOException {
-//        try {
-//            Lesson lesson = lessonRepository.findAll().get(0);
-//            Document newDocument = reportPdfDocumentBuilder.createNewDocument(lesson);
-//            Document listHeader = reportPdfDocumentBuilder.createListHeader(lesson, newDocument);
-//            reportPdfDocumentBuilder.finishDocument(listHeader);
-//
-//        } catch (IOException | DocumentException e) {
-//            System.out.println(e);
-//        }
+        Lesson cities = lessonRepository.findOne(22L);
 
-        List<Lesson> cities = lessonRepository.findAll();
-
-        ByteArrayInputStream bis = reportPdfDocumentBuilder.citiesReport(cities);
+        ByteArrayInputStream bis = reportPdfDocumentBuilder.createTeacherReport(cities.getTeacher());
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=citiesreport.pdf");

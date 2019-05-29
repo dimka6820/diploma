@@ -2,15 +2,123 @@ package com.dmma.diploma.pdf_builder;
 
 
 import com.dmma.diploma.model.Lesson;
+import com.dmma.diploma.model.Teacher;
+import com.dmma.diploma.model.UnsuccessfulLesson;
+import com.dmma.diploma.repository.LessonRepository;
+import com.dmma.diploma.repository.UnsuccessfulLessonRepository;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class ReportPdfDocumentBuilder {
+    @Autowired
+    private LessonRepository lessonRepository;
+
+    @Autowired
+    private UnsuccessfulLessonRepository unsuccessfulLessonRepository;
+
+    public ByteArrayInputStream createTeacherReport(Teacher teacher) {
+
+        Document document = new Document();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+        try {
+            BaseFont helvetica = BaseFont.createFont("C:\\Windows\\Fonts\\arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+
+            PdfPTable table = new PdfPTable(4);
+            table.setWidthPercentage(100);
+            table.setWidths(new int[]{1, 3, 3, 3});
+
+            Font headFont = new Font(helvetica, 12, Font.BOLD);
+
+            PdfPCell hcell;
+            hcell = new PdfPCell(new Phrase("Аудитория", headFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(hcell);
+
+            hcell = new PdfPCell(new Phrase("Предмет", headFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(hcell);
+
+            hcell = new PdfPCell(new Phrase("Дата", headFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(hcell);
+
+            hcell = new PdfPCell(new Phrase("Номер занятия", headFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(hcell);
+
+            List<Lesson> lessons = lessonRepository.findByTeacher(teacher);
+            int unsuccessfulLessonCount = 0;
+            for (Lesson lesson : lessons) {
+                System.out.println("lesson: " + lesson);
+                UnsuccessfulLesson unsuccessfulLesson = unsuccessfulLessonRepository.findByLesson(lesson);
+                System.out.println("unsuccessfulLesson: " + unsuccessfulLesson);
+
+                if (unsuccessfulLesson != null) {
+                    unsuccessfulLessonCount++;
+                    PdfPCell cell;
+
+//                Path path = Paths.get(ClassLoader.getSystemResource("Java_logo.png").toURI());
+//                PDPageContentStream contentStream = new PDPageContentStream(document, page);
+//                PDImageXObject image
+//                        = PDImageXObject.createFromFile(path.toAbsolutePath().toString(), document);
+//                contentStream.drawImage(image, 0, 0);
+//
+                    cell = new PdfPCell(new Phrase(lesson.getClassRoom().getBody() + "/" + lesson.getClassRoom().getNumber()));
+                    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    table.addCell(cell);
+
+                    cell = new PdfPCell(new Phrase(lesson.getDiscipline().getName()));
+                    cell.setPaddingLeft(5);
+                    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    table.addCell(cell);
+
+                    String date = unsuccessfulLesson.getImage().get(0).substring(0,10);
+                    cell = new PdfPCell(new Phrase(String.valueOf(date)));
+                    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                    cell.setPaddingRight(5);
+                    table.addCell(cell);
+
+                    cell = new PdfPCell(new Phrase(String.valueOf(lesson.getLessonNumber())));
+                    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                    cell.setPaddingRight(5);
+                    table.addCell(cell);
+                }
+            }
+
+            PdfWriter.getInstance(document, out);
+            Paragraph head = new Paragraph("Отчет о непроведеных занятиях", new Font(helvetica, 14, Font.BOLD));
+            head.setAlignment(Element.ALIGN_CENTER);
+            document.open();
+
+            document.add(head);
+            document.add(new Paragraph("Непроведеные занятия для преподавателя: " + teacher.getSurname() + " " + teacher.getName() + " " + teacher.getLastname(), headFont));
+            document.add(new Paragraph("Всего занятий: " + lessons.size(), headFont));
+            document.add(new Paragraph("Непроведеных занятий: " + unsuccessfulLessonCount, headFont));
+            document.add(Chunk.NEWLINE);
+            document.add(table);
+
+            document.close();
+
+        } catch (DocumentException | IOException ex) {
+            System.out.println(ex);
+            System.out.println(ex.getStackTrace());
+        }
+
+        return new ByteArrayInputStream(out.toByteArray());
+    }
+
 
     public final static String COMMON_PATH = "D:/diploma/diploma";
 
@@ -22,67 +130,6 @@ public class ReportPdfDocumentBuilder {
         document.addTitle(lesson.getId().toString());
 
         return document;
-    }
-
-    public static ByteArrayInputStream citiesReport(List<Lesson> lessons) {
-
-        Document document = new Document();
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-
-        try {
-
-            PdfPTable table = new PdfPTable(3);
-            table.setWidthPercentage(60);
-            table.setWidths(new int[]{1, 3, 3});
-
-            Font headFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
-
-            PdfPCell hcell;
-            hcell = new PdfPCell(new Phrase("Id", headFont));
-            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            table.addCell(hcell);
-
-            hcell = new PdfPCell(new Phrase("Name", headFont));
-            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            table.addCell(hcell);
-
-            hcell = new PdfPCell(new Phrase("Population", headFont));
-            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            table.addCell(hcell);
-
-            for (Lesson city : lessons) {
-
-                PdfPCell cell;
-
-                cell = new PdfPCell(new Phrase(city.getId().toString()));
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Phrase(city.getId()));
-                cell.setPaddingLeft(5);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Phrase(String.valueOf(city.getClassRoom())));
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-                cell.setPaddingRight(5);
-                table.addCell(cell);
-            }
-
-            PdfWriter.getInstance(document, out);
-            document.open();
-            document.add(table);
-
-            document.close();
-
-        } catch (DocumentException ex) {
-            System.out.println(ex);
-        }
-
-        return new ByteArrayInputStream(out.toByteArray());
     }
 
     public Document createListHeader(Lesson lesson, Document document) throws DocumentException, IOException, com.itextpdf.text.DocumentException {

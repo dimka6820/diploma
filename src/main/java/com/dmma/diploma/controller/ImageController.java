@@ -16,9 +16,7 @@ public class ImageController {
 
     @RequestMapping("/cover/{bookID}")
     public ResponseEntity<byte[]> testphoto(@PathVariable(value = "bookID") String bookId) throws IOException {
-        System.out.println("bookId: " + bookId);
         String newBookId = Constants.FOLDER + bookId + Constants.POSTFIX;
-        System.out.println("newBookId: " + newBookId);
         ByteArrayOutputStream out = null;
         InputStream input = null;
         try {

@@ -18,8 +18,8 @@
                   <ul class="dropdown-menu">
                     <li><a href="/report">Все отчеты</a></li>
                     <li class="divider"></li>
-                    <li><a href="#">Отчеты по преподавателям</a></li>
-                    <li><a href="#">Отчеты по аудиториям</a></li>
+                    <li><a href="teacherList">Отчеты по преподавателям</a></li>
+                    <li><a href="classroomList">Отчеты по аудиториям</a></li>
                   </ul>
                 </li>
             </sec:authorize>
